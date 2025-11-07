@@ -6,6 +6,8 @@
     <title>Login</title>
 </head>
 <body>
-    
+    <?php
+        include "../Assets/Global Components/navbar.php";
+    ?>
 </body>
 </html>
