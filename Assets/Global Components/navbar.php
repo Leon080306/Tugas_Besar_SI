@@ -22,7 +22,7 @@
         <?php if($_COOKIE["user_role"] && $_COOKIE["user_role"] == "A") { ?>
             <a href = "../SignUp&Login/addNewAdmin.php" class="drawerMenuList">
                 <div class="drawerMenuListWrapper">
-                    <h2>Add new account</h2>
+                    <h2>Add new admin</h2>
                     <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/addAccount.png" alt="">
                 </div>
             </a>
