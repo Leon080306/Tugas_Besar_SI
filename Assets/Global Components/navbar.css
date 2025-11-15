@@ -6,11 +6,13 @@ body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background-color: #e4ebf2;
+    width: 100%;
+    height: 100%;
 }
 
 #header {
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     top: 0;
     width: 100%;
     background-color: #273c53;
@@ -90,6 +92,7 @@ body {
 
 #drawerMenu {
     position: absolute;
+    z-index: 10;
     right: 0;
     top: 80px;
     height: 0;
@@ -97,7 +100,7 @@ body {
     overflow: hidden;
     flex-direction: column;
     background-color: #273c53;
-    width: 200px;
+    width: 220px;
     color: white;
     box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
@@ -134,4 +137,15 @@ body {
     width: 87%;
     flex-direction: row-reverse;
     align-items: center;
+}
+
+#main {
+    position: absolute;
+    left: 240px;
+    top: 80px;
+    z-index: 2;
+    width: calc(100% - 240px);
+    height: calc(100% - 80px);
+    box-sizing: border-box;
+    padding: 24px 22px;
 }
