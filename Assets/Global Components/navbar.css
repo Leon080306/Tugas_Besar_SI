@@ -8,6 +8,7 @@ body {
     background-color: #e4ebf2;
     width: 100%;
     height: 100%;
+    color: #273c53;
 }
 
 #header {
@@ -31,14 +32,14 @@ body {
     font-weight: 300;
 }
 
-#header #title {
+#header #navTitle {
     display: flex;
     align-items: center;
     width: 50%;
     font-size: 14px;
 }
 
-#title h1 {
+#navTitle h1 {
     margin-left: 50px;
 }
 
@@ -147,5 +148,6 @@ body {
     width: calc(100% - 240px);
     height: calc(100% - 80px);
     box-sizing: border-box;
-    padding: 24px 22px;
+    padding: 24px 24px;
+    padding-right: 64px;
 }
