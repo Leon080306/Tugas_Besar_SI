@@ -12,7 +12,17 @@
     include "../../Assets/Global Components/navbar.php";
     ?>
     <div id="main">
-        
+        <div id="title">
+            <h1>Mata Kuliah</h1>
+        </div>
+
+        <div class="container">
+            <table>
+                <tr>
+                    
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 <style>
