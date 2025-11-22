@@ -21,7 +21,7 @@
     //uuid generator
     require_once "../../Utils/uuidGenerator.php";
 
-    $user_id = $_GET['user_id']; 
+    $user_id = $_GET['user_id'];
     $stmt_call_information_student = $con->prepare("SELECT u.user_id, u.nama, u.alamat, m.nim, m.kode_prodi FROM users u JOIN mahasiswa m ON u.user_id = m.user_id WHERE u.user_id = ?");
     $stmt_call_information_student->bind_param("s", $user_id);
     $stmt_call_information_student->execute();
@@ -54,7 +54,6 @@
                 }
                 $con->commit();
                 echo "<script>alert('Berhasil update Mahasiswa: " . $nama . "');</script>";
-
             } catch (Exception $e) {
                 $con->rollback();
                 echo "<script>console.error(" . json_encode($e->getMessage()) . ");</script>";
@@ -75,19 +74,22 @@
                         <tr>
                             <td><span class="label">NIM</span></td>
                             <td><span class="label"> : </span></td>
-                            <td><input type="text" name="nim" class="nim" value="<?php echo $line_call_student["nim"]?>"></td>
+                            <td><input type="text" name="nim" class="nim" value="<?php echo $line_call_student["nim"] ?>"></td>
                         </tr>
                         <tr>
                             <td><span class="label">Program Study</span></td>
                             <td><span class="label"> : </span></td>
                             <td><select name="prodi">
-                                    <option disabled selected>Change Program Study (Before: <?php echo $line_call_student["kode_prodi"]?>)</option>
                                     <?php
                                     $result = $con->query("SELECT kode_prodi, nama_prodi FROM prodi");
                                     while ($row = $result->fetch_assoc()) {
                                         $kode = $row["kode_prodi"];
                                         $namaProdi = $row["nama_prodi"];
-                                        echo "<option value = '$kode'>$namaProdi</option>";
+                                        if ($line_call_student["kode_prodi"] == $kode) {
+                                            echo "<option selected value = '$kode'>$namaProdi (Current Prodi)</option>";
+                                        } else {
+                                            echo "<option value = '$kode'>$namaProdi </option>";
+                                        }
                                     }
                                     ?>
                                 </select></td>
@@ -95,16 +97,16 @@
                         <tr>
                             <td><span class="label">Nama</span></td>
                             <td><span class="label"> : </span></td>
-                            <td><input type="text" name="nama" class="nim" value="<?php echo decryptData($line_call_student["nama"])?>"></td>
+                            <td><input type="text" name="nama" class="nim" value="<?php echo decryptData($line_call_student["nama"]) ?>"></td>
                         </tr>
                         <tr>
                             <td><span class="label">Alamat</span></td>
                             <td><span class="label"> : </span></td>
-                            <td><input type="text" name="alamat" class="nim" value="<?php echo $line_call_student["alamat"]?>"></td>
+                            <td><input type="text" name="alamat" class="nim" value="<?php echo $line_call_student["alamat"] ?>"></td>
                         </tr>
                     </table>
                     <div class="input_button">
-                        <input type="submit" name="submit" value="Update Mahasiswa <?php echo decryptData($line_call_student["nama"])?>">
+                        <input type="submit" name="submit" value="Update Mahasiswa <?php echo decryptData($line_call_student["nama"]) ?>">
                     </div>
                 </div>
             </div>
