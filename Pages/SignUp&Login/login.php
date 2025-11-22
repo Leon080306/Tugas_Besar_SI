@@ -8,13 +8,66 @@
     <link rel="stylesheet" href="signup&login.css">
     <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
 </head>
+
 <body>
     <?php
-        include "../../Assets/Global Components/navbar.php";
-        include "../../SQL/connection.php";
+    include "../../Assets/Global Components/navbar.php";
+    include "../../SQL/connection.php";
+
+    session_start();
+    if (isset($_SESSION['login_error'])) {
+        $error_message = $_SESSION['login_error'];
+        echo "<script>alert('" . $error_message . "');</script>";
+        unset($_SESSION['login_error']); // Hapus pesan setelah ditampilkan
+    }
+
+    $personID = filter_input(INPUT_POST, 'nim|nik');
+    $password_raw = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
+    $submit = filter_input(INPUT_POST, 'submit');
+
+    if ($submit) {
+        if ($personID && $password_raw) {
+            // $password_raw = password_hash($password_raw, PASSWORD_BCRYPT);
+            $stmt = $con->prepare("SELECT m.nim, u.user_id, u.user_role, u.password FROM mahasiswa m JOIN admin a ON a.user_id = u.user_id JOIN users u ON m.user_id = u.user_id WHERE m.nim = ?");
+            $stmt->bind_param("s", $personID);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $line = $result->fetch_assoc();
+
+
+
+            if ($result->num_rows > 0) {
+                if (password_verify($password_raw, $line['password'])) {
+                    setcookie("user_id", $line['user_id'], time() + (86400 * 30), "/");
+                    setcookie("user_role", $line['user_role'], time() + (86400 * 30), "/");
+                    header("Location: ../../Pages/Dashboard/index.php");
+                    exit();
+                } else {
+                    $error = "Incorrect password.";
+                }
+            } else {
+                $error = "NIM/NIK not found.";
+            }
+
+            if (!empty($error)) {
+                $_SESSION['login_error'] = $error;
+                header("Location: login.php");
+                exit();
+            } else {
+                $_SESSION['login_error'] = "Input tidak boleh kosong!";
+                header("Location: login.php");
+                exit();
+            }
+
+
+        }
+    }
+
+
     ?>
     <div id="main">
-        <form method = "post">
+        <form method="post">
             <div id="loginTitle">
                 <img style="width: 100px; height: 100px;" src="../../Assets/Icons/loginHeader.png" alt="" class="icons">
                 <h1>Welcome Back</h1>
@@ -27,7 +80,7 @@
             </div>
 
             <div id="actions">
-                <input type="submit" class = "button" value="Sign In">
+                <input type="submit" name="submit" class="button" value="Sign In">
                 <a href="signup.php">Don't have an account yet?</a>
             </div>
         </form>

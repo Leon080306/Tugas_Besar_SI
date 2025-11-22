@@ -13,7 +13,7 @@
                 <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/profile.png" alt="">
             </div>
         </a>
-        <a href = "#" class="drawerMenuList">
+        <a href = "../../Pages/SignUp&Login/logout.php" class="drawerMenuList">
             <div class="drawerMenuListWrapper">
                 <h2>Logout</h2>
                 <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/logout.png" alt="">
