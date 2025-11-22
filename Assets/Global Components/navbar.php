@@ -3,7 +3,7 @@
 
 <div id="header">
     <div id="navTitle">
-        <a href="../Dashboard/dashboard.php"><img class="icons" src="../../Assets/Icons/academic.png" alt=""></a>
+        <a href="../Dashboard"><img class="icons" src="../../Assets/Icons/academic.png" alt=""></a>
         <h1>Academic Management System</h1>
     </div>
     <div id="drawerMenu">
@@ -32,23 +32,27 @@
 </div>
 
 <div id="sidebar">
-    <a href="../Dashboard" class="navList">
+    <a href="../Dashboard" class="admin mahasiswa navList">
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/home.png" alt="">
         <h2>Dashboard</h2>
     </a>
-    <a href="../Mahasiswa" class="navList">
+    <a href="../Mahasiswa" class="admin navList">
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/student.png" alt="">
         <h2>Mahasiswa</h2>
     </a>
-    <a href="../Program Studi" class="navList">
+    <a href="../Mahasiswa" class="mahasiswa navList">
+        <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/student.png" alt="">
+        <h2>Profil Saya</h2>
+    </a>
+    <a href="../Program Studi" class="admin mahasiswa navList">
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/prodi.png" alt="">
         <h2>Program Studi</h2>
     </a>
-    <a href="../Mata Kuliah" class="navList">
+    <a href="../Mata Kuliah" class="admin mahasiswa navList">
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/matkul.png" alt="">
         <h2>Mata Kuliah</h2>
     </a>
-    <a href="../Nilai" class="navList">
+    <a href="../Nilai" class="admin mahasiswa navList">
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/nilai.png" alt="">
         <h2>Transkrip Nilai</h2>
     </a>

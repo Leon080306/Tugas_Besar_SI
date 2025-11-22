@@ -52,8 +52,11 @@
     </div>
 </body>
 <style>
-    .navList:nth-child(3) {
+    .navList:nth-child(4) {
         background-color: #2886ea;
+    }
+    .admin {
+        display: flex;
     }
 </style>
 

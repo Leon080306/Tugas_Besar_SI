@@ -16,8 +16,11 @@
     </div>
 </body>
 <style>
-    .navList:nth-child(3) {
+    .navList:nth-child(4) {
         background-color: #2886ea;
+    }
+    .mahasiswa {
+        display: flex;
     }
 </style>
 </html>

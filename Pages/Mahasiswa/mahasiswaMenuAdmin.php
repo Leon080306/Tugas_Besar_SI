@@ -53,5 +53,8 @@
     .navList:nth-child(2) {
         background-color: #2886ea;
     }
+    .admin {
+        display: flex;
+    }
 </style>
 </html>
