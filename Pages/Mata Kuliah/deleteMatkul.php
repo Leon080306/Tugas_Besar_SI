@@ -11,3 +11,4 @@ if (isset($_GET['kode_mk'])) {
 }
 header("Location: matkulMenuAdmin.php");
 exit();
+?>
