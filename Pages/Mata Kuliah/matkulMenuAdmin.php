@@ -29,9 +29,8 @@
                 </tr>
                 <?php
                     include "../../SQL/connection.php";
-                    $sql = "SELECT m.kode_mk, m.nama_mk, m.sks ,(SELECT COUNT(*) FROM nilai WHERE kode_mk = m.kode_mk) AS total_mhs FROM matkul m;";
-                    $result = mysqli_query($con, $sql);
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    $result = $con->query("SELECT m.kode_mk, m.nama_mk, m.sks ,(SELECT COUNT(*) FROM nilai WHERE kode_mk = m.kode_mk) AS total_mhs FROM matkul m;");
+                    while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>". $row["kode_mk"] ."</td>";
                         echo "<td>". $row["nama_mk"] ."</td>";
