@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mata Kuliah</title>
+    <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
     <link rel="stylesheet" href="matkulMenuAdmin.css">
     <link rel="stylesheet" href="addMatkulMenuAdmin.css">
 </head>
@@ -45,7 +46,6 @@
                     </div>
                         <input type="submit" class="button" value="Submit">
                 </div>
-                    
             </form>
         </div>  
     </div>

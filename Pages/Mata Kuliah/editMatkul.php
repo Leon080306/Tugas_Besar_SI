@@ -5,6 +5,7 @@
     <title>Mata Kuliah</title>
     <link rel="stylesheet" href="matkulMenuAdmin.css">
     <link rel="stylesheet" href="addMatkulMenuAdmin.css">
+    <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
 </head>
 <body>
     <?php
