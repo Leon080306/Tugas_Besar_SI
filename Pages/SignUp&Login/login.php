@@ -21,27 +21,39 @@
         unset($_SESSION['login_error']); // Hapus pesan setelah ditampilkan
     }
 
-    $personID = filter_input(INPUT_POST, 'nim|nik');
+    $personID = filter_input(INPUT_POST, 'person_id');
     $password_raw = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
     $submit = filter_input(INPUT_POST, 'submit');
 
     if ($submit) {
         if ($personID && $password_raw) {
+            $found = false;
+
+            // Ini untuk Mahasiswa
             $stmt_mhs = $con->prepare("SELECT * FROM mahasiswa m JOIN users u ON m.user_id = u.user_id WHERE m.nim = ?");
             $stmt_mhs->bind_param("s", $personID);
             $stmt_mhs->execute();
-            $result = $stmt_mhs->get_result();
+            $result_mhs = $stmt_mhs->get_result();
 
-            if ($stmt_mhs->num_rows === 0) {
-                $stmt_adm = $con->prepare("SELECT * FROM admin a JOIN users u ON a.user_id = u.user_id WHERE a.nik = ?");
-                $stmt_adm->bind_param("s", $personID);
-                $stmt_adm->execute();
-                $result = $stmt_adm->get_result();
+            if ($result_mhs->num_rows > 0) {
+                $line = $result_mhs->fetch_assoc();
+                $found = true;
             }
 
-            $line = $result->fetch_assoc();
+            // Ini untuk Admin kalau mahasiswa tidak ditemukan
+            if (!$found) {
+                $stmt_adm = $con->prepare("SELECT u.user_id, u.user_role, u.password FROM admin a JOIN users u ON a.user_id = u.user_id WHERE a.nik = ?");
+                $stmt_adm->bind_param("s", $personID);
+                $stmt_adm->execute();
+                $result_adm = $stmt_adm->get_result();
 
-            if ($result->num_rows > 0) {
+                if ($result_adm->num_rows > 0) {
+                    $line = $result_adm->fetch_assoc();
+                    $found = true;
+                }
+            }
+
+            if ($found) {
                 if (password_verify($password_raw, $line['password'])) {
                     setcookie("user_id", $line['user_id'], time() + (86400 * 30), "/");
                     setcookie("user_role", $line['user_role'], time() + (86400 * 30), "/");
@@ -63,8 +75,6 @@
                 header("Location: login.php");
                 exit();
             }
-
-
         }
     }
 
@@ -79,7 +89,7 @@
             </div>
 
             <div id="inputFields">
-                <input type="text" name="nim|nik" placeholder="NIM/NIK" required>
+                <input type="text" name="person_id" placeholder="NIM/NIK" required>
                 <input type="password" name="password" placeholder="Password" required>
             </div>
 
