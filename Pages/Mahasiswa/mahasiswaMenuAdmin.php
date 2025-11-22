@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahasiswa</title>
     <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
-    <link rel="stylesheet" href="mahasiswaMenuAdmin.css">
+    <link rel="stylesheet" href="mahasiswaMenu.css">
 </head>
 <body>
     <?php

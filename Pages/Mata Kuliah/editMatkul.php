@@ -50,7 +50,6 @@
         <div class="container">
             <form method="post">
                 <div id="inputMatkulFields">
-                    <input type="hidden" name="oldKode" value="<?= $data['kode_mk'] ?>">
                     <div id="field">
                         <label>Kode MK :</label> <input type="text" name="KodeMK" value="<?= $data['kode_mk'] ?>" readonly>
                     </div>
