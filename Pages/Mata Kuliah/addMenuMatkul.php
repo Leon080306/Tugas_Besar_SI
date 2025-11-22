@@ -1,30 +1,39 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mata Kuliah</title>
+    <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
     <link rel="stylesheet" href="matkulMenuAdmin.css">
     <link rel="stylesheet" href="addMatkulMenuAdmin.css">
 </head>
+
 <body>
     <?php
     include "../../Assets/Global Components/navbar.php";
     include "../../SQL/connection.php";
 
-   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["KodeMK"]) && isset($_POST["NamaMK"]) && isset($_POST["SKS"])) {
         $kode = $_POST['KodeMK'];
         $nama = $_POST['NamaMK'];
         $sks  = $_POST['SKS'];
 
-    $sql = "INSERT INTO matkul (kode_mk, nama_mk, sks) VALUES (?, ?, ?)";
-    $stmt = $con->prepare($sql);
-    $stmt->bind_param("ssi", $kode, $nama, $sks);
-    $stmt->execute();
+        $con->begin_transaction();
+        try {
+            $sql = "INSERT INTO matkul (kode_mk, nama_mk, sks) VALUES (?, ?, ?)";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("ssi", $kode, $nama, $sks);
+            $stmt->execute();
+            $con->commit();
+        } catch(Exception $e) {
+            $con->rollback();
+        }
 
-    header("Location: matkulMenuAdmin.php");
-    exit();
-   }
-    
+        header("Location: matkulMenuAdmin.php");
+        exit();
+    }
+
     ?>
     <div id="main">
         <div id="title">
@@ -43,11 +52,18 @@
                     <div id="field">
                         <label>Total SKS :</label><input type="number" min="1" name="SKS" placeholder="SKS" required>
                     </div>
-                        <input type="submit" class="button" value="Submit">
+                    <input type="submit" class="button" value="Submit">
                 </div>
-                    
             </form>
-        </div>  
+        </div>
     </div>
 </body>
+<style>
+    .navList:nth-child(5) {
+        background-color: #2886ea;
+    }
+    .admin {
+        display: flex;
+    }
+</style>
 </html>

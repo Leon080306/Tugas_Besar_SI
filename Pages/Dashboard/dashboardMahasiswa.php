@@ -19,5 +19,8 @@
     .navList:nth-child(1) {
         background-color: #2886ea;
     }
+    .mahasiswa {
+        display: flex;
+    }
 </style>
 </html>
