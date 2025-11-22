@@ -41,9 +41,7 @@
                                     <a class='actionIcon' href='editMatkul.php?kode_mk=" . $row['kode_mk'] . "'>
                                         <img src='../../Assets/Icons/editIcon.png' alt=''>
                                     </a>
-                                    <a class='actionIcon' href='deleteMatkul.php?kode_mk=" . $row['kode_mk'] . "'
-                                        onclick=\"return confirm('delete " . $row['kode_mk'] . "?');\"> 
-                                        <img src='../../Assets/Icons/deleteIcon.png' alt='Delete'>
+                                    <a class='actionIcon' href='deleteMatkul.php?kode_mk=" . $row['kode_mk'] . "'><img src='../../Assets/Icons/deleteIcon.png' alt='Delete'>
                                     </a>
                                 </div>
                             </td>";

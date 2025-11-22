@@ -48,7 +48,7 @@
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/prodi.png" alt="">
         <h2>Program Studi</h2>
     </a>
-    <a href="../Mata Kuliah" class="admin mahasiswa navList">
+    <a href="../Mata Kuliah" class="admin navList">
         <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/matkul.png" alt="">
         <h2>Mata Kuliah</h2>
     </a>
