@@ -27,15 +27,19 @@
 
     if ($submit) {
         if ($personID && $password_raw) {
-            // $password_raw = password_hash($password_raw, PASSWORD_BCRYPT);
-            $stmt = $con->prepare("SELECT m.nim, u.user_id, u.user_role, u.password FROM mahasiswa m JOIN admin a ON a.user_id = u.user_id JOIN users u ON m.user_id = u.user_id WHERE m.nim = ?");
-            $stmt->bind_param("s", $personID);
-            $stmt->execute();
+            $stmt_mhs = $con->prepare("SELECT * FROM mahasiswa m JOIN users u ON m.user_id = u.user_id WHERE m.nim = ?");
+            $stmt_mhs->bind_param("s", $personID);
+            $stmt_mhs->execute();
+            $result = $stmt_mhs->get_result();
 
-            $result = $stmt->get_result();
+            if ($stmt_mhs->num_rows === 0) {
+                $stmt_adm = $con->prepare("SELECT * FROM admin a JOIN users u ON a.user_id = u.user_id WHERE a.nik = ?");
+                $stmt_adm->bind_param("s", $personID);
+                $stmt_adm->execute();
+                $result = $stmt_adm->get_result();
+            }
+
             $line = $result->fetch_assoc();
-
-
 
             if ($result->num_rows > 0) {
                 if (password_verify($password_raw, $line['password'])) {
