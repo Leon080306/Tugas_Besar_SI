@@ -27,8 +27,30 @@
                     <th>Grade</th>
                     <th>Aksi</th>
                 </tr>
+                <?php
+                include "../../SQL/connection.php";
+                $result = $con->query("SELECT * FROM nilai ");
+                while ($row = $result->fetch_assoc()) {
+                    echo"<tr>";
+                    echo"<td>". $row["nim"] ."</td>";
+                    echo "<td>". $row["kode_mk"] ."</td>";
+                    echo "<td>". $row["nilai"] ."</td>";
+                    echo "<td>". $row["grade"] ."</td>";
+                    echo "<td>";
+                    echo "<div id='tableActions'>
+                            <a class='actionIcon' href=''>
+                                <img src='../../Assets/Icons/editIcon.png' alt=''>
+                            </a>
+                            <a class='actionIcon' href=''>
+                                <img src='../../Assets/Icons/deleteIcon.png' alt=''>
+                            </a>
+                        </div>";
+                    echo "</td>";
+                    echo"</tr>";
+                }
+                ?>
                 <!-- ======================echo <tr> ini untuk setiap prodi========================= -->
-                <tr>
+                <!-- <tr>
                     <td>[nim]</td>
                     <td>[kode mk]</td>
                     <td>[nilai]</td>
@@ -43,7 +65,7 @@
                             </a>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
                 <!-- ====================================================================================== -->
             </table>
         </div>
