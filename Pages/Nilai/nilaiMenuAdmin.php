@@ -46,11 +46,9 @@
                             echo"</tbody>";
                         }
 
-                        // update marker
                         $currentMK = $kodeMK;
                         $groupIndex++;
 
-                        // create a unique id per group
                         $tbodyId = "tbody_{$kodeMK}_{$groupIndex}";
 
                         echo "<tr class='matkul' data-target='{$tbodyId}'>";
@@ -61,7 +59,7 @@
                         echo "<td>       </td>";
                         echo"</tr>";
                         $currentMK = $row["kode_mk"];
-                        echo "<tbody class='nilai' id='{$tbodyId}' style='display:none;'>"; //testing
+                        echo "<tbody class='nilai' id='{$tbodyId}' style='display:none;'>"; 
                     }
                     echo"<tr>";
                     echo"<td>". $row["nim"] ."</td>";
