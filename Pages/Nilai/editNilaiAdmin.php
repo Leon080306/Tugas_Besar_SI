@@ -19,7 +19,7 @@
 
     $nim = $_GET['nim'];
     $kodeMK = $_GET['kode_mk'];
-    $nilai = decryptData($_GET['nilai']);
+    $nilai = doubleval(decryptData($_GET['nilai']));
 
     if(isset($_POST["nilai"])){
         $nilaiNormal = $_POST["nilai"];
@@ -64,7 +64,7 @@
     </div>
 </body>
 <style>
-    .navList:nth-child(5) {
+    .navList:nth-child(6) {
         background-color: #2886ea;
     }
     .admin {

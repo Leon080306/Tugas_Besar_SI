@@ -95,7 +95,7 @@
     </div>
 </body>
 <style>
-    .navList:nth-child(5) {
+    .navList:nth-child(6) {
         background-color: #2886ea;
     }
     .admin {

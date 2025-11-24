@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Program Studi</title>
-    <link rel="stylesheet" href="prodiMenuAdmin.css">
+    <link rel="stylesheet" href="prodiMenu.css">
     <link rel="stylesheet" href="addProdiMenuAdmin.css">
     <link rel = "icon" href = "../../Assets/Icons/pageIcon.png" type="image/png">
 </head>
@@ -69,4 +69,13 @@
         </div>
     </div>
 </body>
+<style>
+    .admin {
+        display: flex;
+    }
+    
+    .navList:nth-child(4) {
+        background-color: #2886ea;
+    }
+</style>
 </html>

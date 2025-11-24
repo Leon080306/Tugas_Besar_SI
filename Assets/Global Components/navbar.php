@@ -9,24 +9,24 @@
     <div id="drawerMenu">
         <a href = "#" class="drawerMenuList">
             <div class="drawerMenuListWrapper">
-                <h2>My Account</h2>
                 <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/profile.png" alt="">
-            </div>
-        </a>
-        <a href = "../../Pages/SignUp&Login/logout.php" class="drawerMenuList">
-            <div class="drawerMenuListWrapper">
-                <h2>Logout</h2>
-                <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/logout.png" alt="">
+                <h2>My Account</h2>
             </div>
         </a>
         <?php if($_COOKIE["user_role"] && $_COOKIE["user_role"] == "A") { ?>
             <a href = "../SignUp&Login/addNewAdmin.php" class="drawerMenuList">
                 <div class="drawerMenuListWrapper">
-                    <h2>Add new admin</h2>
                     <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/addAccount.png" alt="">
+                    <h2>Add new admin</h2>
                 </div>
             </a>
         <?php } ?>
+        <a href = "../../Pages/SignUp&Login/logout.php" class="drawerMenuList">
+            <div class="drawerMenuListWrapper">
+                <img style="width: 24px; height: 24px;" class="icons" src="../../Assets/Icons/logout.png" alt="">
+                <h2>Logout</h2>
+            </div>
+        </a>
     </div>
     <img id="drawerIcon" style="width: 26px; height: 26px;" class="icons" src="../../Assets/Icons/drawer.png" alt="">
 </div>

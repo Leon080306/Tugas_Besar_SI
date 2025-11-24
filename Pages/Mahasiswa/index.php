@@ -5,4 +5,7 @@
     else if($_COOKIE["user_role"] == "M") {
         header("Location: mahasiswaMenuMahasiswa.php");
     }
+    else {
+        header("Location: ../SignUp&Login");
+    }
 ?>

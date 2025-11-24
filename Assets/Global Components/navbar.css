@@ -136,8 +136,8 @@ body {
 
 .drawerMenuListWrapper {
     display: flex;
-    width: 87%;
-    flex-direction: row-reverse;
+    width: 100%;
+    flex-direction: start;
     align-items: center;
 }
 

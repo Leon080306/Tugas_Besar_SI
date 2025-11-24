@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="nilaiMenu.css">
     <script src="../../Assets/Library/jquery.js"></script>
 </head>
+
 <body>
     <?php
     include "../../Assets/Global Components/navbar.php";
@@ -16,6 +17,8 @@
     //untuk encrypt dan decrypt data
     require_once "../../config.php";
     require_once "../../Utils/encryption.php";
+    require_once "../../SQL/connection.php";
+    require_once "../../Utils/gradeUtil.php";
     ?>
     <div id="main">
         <div id="title">
@@ -27,59 +30,24 @@
             <table>
                 <tr>
                     <th>NIM Mahasiswa</th>
-                    <th>Kode Mata Kuliah</th>
-                    <th>Nilai</th>
-                    <th>Grade</th>
-                    <th>Aksi</th>
+                    <th>Nama Mahasiswa</th>
+                    <th>Prodi Mahasiswa</th>
+                    <th>IPS</th>
                 </tr>
                 <?php
-                include "../../SQL/connection.php";
-                $result = $con->query("SELECT * FROM nilai ORDER BY kode_mk,nim;");
-                $currentMK = "";
-                $groupIndex = "";
-                while ($row = $result->fetch_assoc()) {
-                    $kodeMK = $row["kode_mk"];
-                    $nilai = decryptData($row["nilai"]);
-                    $grade = decryptData($row["grade"]);
-                    if($currentMK != $kodeMK){
-                        if($currentMK != ""){
-                            echo"</tbody>";
-                        }
-
-                        $currentMK = $kodeMK;
-                        $groupIndex++;
-
-                        $tbodyId = "tbody_{$kodeMK}_{$groupIndex}";
-
-                        echo "<tr class='matkul' data-target='{$tbodyId}'>";
-                        echo "<td>". $row["kode_mk"] ."</td>";
-                        echo "<td>       </td>";
-                        echo "<td>       </td>";
-                        echo "<td>       </td>";
-                        echo "<td>       </td>";
-                        echo"</tr>";
-                        $currentMK = $row["kode_mk"];
-                        echo "<tbody class='nilai' id='{$tbodyId}' style='display:none;'>"; 
-                    }
-                    echo"<tr>";
-                    echo"<td>". $row["nim"] ."</td>";
-                    echo "<td>". $row["kode_mk"] ."</td>";
-                    echo "<td>". $nilai ."</td>";
-                    echo "<td>". $grade ."</td>";
-                    echo "<td>";
-                    echo "<div id='tableActions'>
-                            <a class='actionIcon' href='editNilaiAdmin.php?nim=" . $row['nim'] . "&kode_mk=" . $row['kode_mk'] .  "&nilai=" .$row['nilai']."'>
-                                <img src='../../Assets/Icons/editIcon.png' alt=''>
-                            </a>
-                            <a class='actionIcon' href='deleteNilai.php?nim=" . $row['nim'] . "&kode_mk=" . $row['kode_mk'] . "'>
-                                <img src='../../Assets/Icons/deleteIcon.png' alt=''>
-                            </a>
-                        </div>";
-                    echo "</td>";
-                    echo"</tr>";
-                }
-                if ($currentMK != "") {
-                    echo "</tbody>";
+                $getMhs = $con->query("SELECT u.user_id, m.nim, u.nama, p.nama_prodi
+                    FROM mahasiswa m 
+                    INNER JOIN users u ON m.user_id = u.user_id
+                    INNER JOIN prodi p ON p.kode_prodi = m.kode_prodi
+                    WHERE m.nim IN (SELECT nim FROM nilai)");
+                while ($row = $getMhs->fetch_assoc()) {
+                    $mhsID = $row["user_id"];
+                    echo "<tr style='cursor:pointer;' onclick=\"window.location='viewTranskripNilai.php?user_id=$mhsID'\">
+                        <td>" . $row["nim"] . "</td>
+                        <td>" . decryptData($row["nama"]) . "</td>
+                        <td>" . $row["nama_prodi"] . "</td>
+                        <td>" . hitungIP($row["nim"]) . "</td>
+                    </tr>";
                 }
                 ?>
             </table>
@@ -90,17 +58,10 @@
     .navList:nth-child(6) {
         background-color: #2886ea;
     }
+
     .admin {
         display: flex;
     }
 </style>
-<script>
-    $(document).ready(function () {
-        $(".matkul").click(function () {
-            let targetId = $(this).data("target");
-            $("#" + targetId).slideToggle(400);
-            $(this).toggleClass("opened");
-        })
-    })
-</script>
+
 </html>

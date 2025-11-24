@@ -74,7 +74,7 @@
     ?>
     <div id="main">
         <div id="title">
-            <h1>Edit Mahasiswa</h1>
+            <h1>Profil Mahasiswa</h1>
             <!-- <a href="" class="button"></a> -->
         </div>
 

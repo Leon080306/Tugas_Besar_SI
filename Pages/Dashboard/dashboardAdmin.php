@@ -6,126 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
+    <link rel="stylesheet" href="dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<style>
-    #overview {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 200px;
-        gap: 24px;
-    }
-
-    .cards:nth-child(1) {
-        background-color: #3080e3;
-    }
-
-    .cards:nth-child(2) {
-        background-color: #30b0af;
-    }
-
-    .cards:nth-child(3) {
-        background-color: #ee9456;
-    }
-
-    .cards {
-        height: 100%;
-        flex: 1;
-        border-radius: 12px;
-        box-sizing: border-box;
-        padding: 24px 32px;
-        position: relative;
-        text-decoration: none;
-        box-shadow: 0 2px 10px 5px rgb(204, 204, 204, 0.5);
-    }
-
-    .cardTitle {
-        color: white;
-        font-weight: lighter;
-        font-size: 20px;
-        margin: 0;
-        padding: 0;
-    }
-
-    .count {
-        color: white;
-        font-weight: lighter;
-        font-size: 62px;
-        margin: 0;
-        padding: 0;
-    }
-
-    .subtitle {
-        color: white;
-        opacity: 0.6;
-        font-weight: lighter;
-        font-size: 14px;
-        margin: 0;
-        padding: 0;
-    }
-
-    .cardFooter {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .cards .icon {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        right: 5.5%;
-        bottom: 5%;
-    }
-
-    .container {
-        background-color: white;
-        /* width: 100%;
-        height: 500px; */
-        border-radius: 12px;
-        box-shadow: 0 2px 10px 5px rgb(204, 204, 204, 0.5);
-        padding: 18px 24px;
-        box-sizing: border-box;
-        overflow: auto;
-    }
-
-    #dashboardItems {
-        margin-block: 40px;
-        padding-bottom: 40px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-        grid-auto-rows: 200px;
-    }
-
-    #dashboardItems .container:nth-child(2) {
-        grid-row: span 2;
-    }
-
-    .container h1 {
-        font-size: 18px;
-        font-weight: 500;
-        margin: 0;
-        padding: 0;
-    }
-
-    #listMahasiswa {
-        margin-top: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .mahasiswaRecord {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 95%;
-    }
-</style>
-
 <body>
     <?php
     include "../../Assets/Global Components/navbar.php";
@@ -204,7 +87,7 @@
             <div class="container">
                 <h1>Mata Kuliah dengan Nilai Rata-rata Tertinggi</h1>
                 <div id="barChartWrapper">
-                    <canvas id="averageNilaiChart"></canvas> 
+                    <canvas id="averageNilaiChart"></canvas>
                 </div>
             </div>
 
@@ -217,18 +100,6 @@
         </div>
     </div>
 </body>
-<style>
-    #pieChartWrapper {
-        width: 90%;
-        height: 75%;
-        margin-left: -50px;
-    }
-
-    #barChartWrapper {
-        width: 100%;
-        height: 90%;
-    }
-</style>
 <?php
 $getMatkulAmbil = $con->query("SELECT m.kode_mk, m.nama_mk, COUNT(n.kode_mk) AS jumlah
                                FROM matkul m INNER JOIN nilai n
@@ -246,7 +117,7 @@ while ($row = $getMatkulAmbil->fetch_assoc()) {
 
 $avgNilaiMatkul = [];
 
-foreach($listMK as $mk) {
+foreach ($listMK as $mk) {
     $getAvgNilai = $con->prepare("SELECT nilai FROM nilai WHERE kode_mk = ?");
     $getAvgNilai->bind_param("s", $mk);
     $getAvgNilai->execute();
@@ -256,7 +127,7 @@ foreach($listMK as $mk) {
     $totalNilai = 0;
     $count = 0;
 
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $totalNilai += doubleval(decryptData($row["nilai"]));
         $count++;
     }
@@ -315,7 +186,7 @@ foreach($listMK as $mk) {
                 borderColor: barColor,
                 borderWidth: 1,
                 borderRadius: 5,
-                barPercentage: 0.2,
+                barPercentage: 0.5,
             }]
         },
         options: {

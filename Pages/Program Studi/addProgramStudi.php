@@ -6,7 +6,7 @@
     <title>Program Studi</title>
     <link rel = "icon" href = "../../Assets/Icons/pageIcon.png" type="image/png">
     <link rel="stylesheet" href="addProdiMenuAdmin.css">
-    <link rel ="stylesheet" href="prodiMenuAdmin.css">
+    <link rel ="stylesheet" href="prodiMenu.css">
 </head>
 <body>
     <?php
@@ -37,8 +37,6 @@
         exit();
         
     }
-
-
     ?>
     <div id="main">
         <div id="title">
@@ -66,4 +64,13 @@
         </div>
     </div>
 </body>
+<style>
+    .admin {
+        display: flex;
+    }
+    
+    .navList:nth-child(4) {
+        background-color: #2886ea;
+    }
+</style>
 </html>
