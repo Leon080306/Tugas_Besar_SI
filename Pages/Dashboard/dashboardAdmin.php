@@ -209,7 +209,7 @@
             </div>
 
             <div class="container" style="display: flex; flex-direction: column; justify-content: space-between;">
-                <h1>Mahasiswa dengan IP Tertinggi</h1>
+                <h1>Matkul paling banyak diambil</h1>
                 <div id="pieChartWrapper">
                     <canvas id="matkulAmbilPersentase"></canvas>
                 </div>
