@@ -11,20 +11,22 @@
 <body>
     <?php
     include "../../Assets/Global Components/navbar.php";
-    include "../../SQL/connection.php";
+    require_once "../../SQL/connection.php";
+    include "../../Utils/gradeUtil.php";
+    require_once "../../config.php";    
+    require_once "../../Utils/encryption.php";
     
-    if (isset($_POST["KodeProdi"]) && isset($_POST["NamaProdi"]) && isset($_POST["Fakultas"]) && isset($_POST["NamaKetuaProdi"]) && isset($_POST["TotalMahasiswa"])) {
+    if (isset($_POST["KodeProdi"]) && isset($_POST["NamaProdi"]) && isset($_POST["Fakultas"]) && isset($_POST["NamaKetuaProdi"])) {
         $kode = $_POST['KodeProdi'];
         $nama = $_POST['NamaProdi'];
         $fakultas = $_POST['Fakultas'];
         $nama_ketua = $_POST['NamaKetuaProdi'];
-        $total_mhs  = $_POST['TotalMahasiswa'];
-
+        
         $con->begin_transaction();
         try {
-            $sql = "INSERT INTO prodi (kode_prodi, nama_prodi, fakultas, nama_ketua_prodi, total_mhs) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO prodi (kode_prodi, nama_prodi, fakultas, nama_ketua_prodi) VALUES (?, ?, ?, ?)";
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("ssssi", $kode, $nama, $fakultas, $nama_ketua, $total_mhs);
+            $stmt->bind_param("ssss", $kode, $nama, $fakultas, $nama_ketua);
             $stmt->execute();
             $con->commit();
         } catch(Exception $e) {
@@ -57,9 +59,6 @@
                     </div>
                     <div id="field">
                         <label>Nama Ketua Prodi :</label><input type="text" name="NamaKetuaProdi" placeholder="Nama Ketua Program Studi" required>
-                    </div>
-                    <div id="field">
-                        <label>Total Mahasiswa :</label><input type="number" min="1" name="TotalMahasiswa" placeholder="Total Mahasiswa" required>
                     </div>
                     <input type="submit" class="button" value="Submit">
                 </div>
