@@ -315,7 +315,7 @@ foreach($listMK as $mk) {
                 borderColor: barColor,
                 borderWidth: 1,
                 borderRadius: 5,
-                barPercentage: 0.5,
+                barPercentage: 0.2,
             }]
         },
         options: {
