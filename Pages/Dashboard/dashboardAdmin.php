@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" href="../../Assets/Icons/pageIcon.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <style>
     #overview {
@@ -190,7 +191,7 @@
                         return $b["ip"] <=> $a["ip"];
                     });
 
-                    foreach($listMahasiswa as $mhs) {
+                    foreach ($listMahasiswa as $mhs) {
                         echo "<div class = 'mahasiswaRecord'>
                             <span>" . decryptData($mhs["nama"]) . "</span>
                             <span>" . $mhs["ip"] . "</span>
@@ -201,15 +202,151 @@
             </div>
 
             <div class="container">
-
+                <h1>Mata Kuliah dengan Nilai Rata-rata Tertinggi</h1>
+                <div id="barChartWrapper">
+                    <canvas id="averageNilaiChart"></canvas> 
+                </div>
             </div>
 
-            <div class="container">
-
+            <div class="container" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <h1>Mahasiswa dengan IP Tertinggi</h1>
+                <div id="pieChartWrapper">
+                    <canvas id="matkulAmbilPersentase"></canvas>
+                </div>
             </div>
         </div>
     </div>
 </body>
+<style>
+    #pieChartWrapper {
+        width: 90%;
+        height: 75%;
+        margin-left: -50px;
+    }
+
+    #barChartWrapper {
+        width: 100%;
+        height: 90%;
+    }
+</style>
+<?php
+$getMatkulAmbil = $con->query("SELECT m.kode_mk, m.nama_mk, COUNT(n.kode_mk) AS jumlah
+                               FROM matkul m INNER JOIN nilai n
+                               ON m.kode_mk = n.kode_mk GROUP BY m.kode_mk;");
+
+$label = [];
+$persentaseMatkulAmbil = [];
+$listMK = [];
+
+while ($row = $getMatkulAmbil->fetch_assoc()) {
+    $label[] = "'" . $row["nama_mk"] . "'";
+    $persentaseMatkulAmbil[] = $row["jumlah"];
+    $listMK[] = $row["kode_mk"];
+}
+
+$avgNilaiMatkul = [];
+
+foreach($listMK as $mk) {
+    $getAvgNilai = $con->prepare("SELECT nilai FROM nilai WHERE kode_mk = ?");
+    $getAvgNilai->bind_param("s", $mk);
+    $getAvgNilai->execute();
+
+    $result = $getAvgNilai->get_result();
+
+    $totalNilai = 0;
+    $count = 0;
+
+    while($row = $result->fetch_assoc()) {
+        $totalNilai += doubleval(decryptData($row["nilai"]));
+        $count++;
+    }
+
+    if ($count > 0) {
+        $rataRata = $totalNilai / $count;
+    } else {
+        $rataRata = 0;
+    }
+
+    $avgNilaiMatkul[] = $rataRata;
+}
+?>
+<script>
+    const pieChart = document.getElementById('matkulAmbilPersentase').getContext('2d');
+
+    new Chart(pieChart, {
+        type: 'pie',
+        data: {
+            labels: [<?php echo implode(", ", $label) ?>],
+            datasets: [{
+                data: [<?php echo implode(", ", $persentaseMatkulAmbil) ?>],
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: 0
+            },
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 8,
+                        boxWidth: 18
+                    }
+                }
+            }
+        }
+    });
+
+    const myLabels = [<?php echo implode(", ", $label) ?>];
+    const myData = [<?php echo implode(", ", $avgNilaiMatkul) ?>];
+    const barColor = '#2A9D8F';
+
+    const ctx = document.getElementById('averageNilaiChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: myLabels,
+            datasets: [{
+                label: 'Nilai Rata-rata',
+                data: myData,
+                backgroundColor: barColor,
+                borderColor: barColor,
+                borderWidth: 1,
+                borderRadius: 5,
+                barPercentage: 0.5,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 <style>
     .navList:nth-child(1) {
         background-color: #2886ea;
